@@ -11,6 +11,18 @@
 
 <style>
 
+:root{
+    --turkis:#00A096;
+    --pink:#E63264;
+    --petrol:#00737D;
+    --gruen:#73B95A;
+    --rosa:#EB6E87;
+    --hell:#F7F7F7;
+    --weiss:#FFFFFF;
+    --schwarz:#111111;
+    --grau:#E5E7EB;
+}
+
 *{
     margin:0;
     padding:0;
@@ -18,9 +30,9 @@
 }
 
 body{
-    font-family:Inter, Arial, sans-serif;
-    background:#0f172a;
-    color:white;
+    font-family:"Arial Narrow", Arial, sans-serif;
+    background:var(--hell);
+    color:var(--schwarz);
     line-height:1.5;
 }
 
@@ -37,8 +49,8 @@ body{
     position:absolute;
     inset:0;
     background:linear-gradient(
-        rgba(0,0,0,.25),
-        rgba(15,23,42,.95)
+        rgba(0,115,125,.30),
+        rgba(0,115,125,.80)
     );
 }
 
@@ -53,41 +65,44 @@ body{
 
 .badge{
     display:inline-block;
-    background:#d9ff4a;
-    color:black;
-    padding:8px 14px;
+    background:var(--turkis);
+    color:white;
+    padding:10px 18px;
     border-radius:999px;
     font-weight:700;
     margin-bottom:16px;
 }
 
 .hero h1{
-    font-size:3rem;
-    margin-bottom:12px;
+    color:white;
+    font-size:4rem;
+    line-height:1;
+    margin-bottom:16px;
 }
 
 .hero p{
-    max-width:700px;
-    color:#d1d5db;
+    color:white;
+    max-width:750px;
+    font-size:1.15rem;
 }
 
 .wrapper{
-    max-width:760px;
-    margin:-40px auto 80px;
+    max-width:850px;
+    margin:-50px auto 80px;
     padding:20px;
 }
 
 .form-card{
-    background:#1e293b;
+    background:white;
     border-radius:24px;
-    padding:30px;
-    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    padding:32px;
+    box-shadow:0 10px 40px rgba(0,0,0,.08);
 }
 
 .progress-track{
-    height:8px;
     width:100%;
-    background:#334155;
+    height:8px;
+    background:#E5E7EB;
     border-radius:999px;
     overflow:hidden;
     margin-bottom:30px;
@@ -96,7 +111,7 @@ body{
 .progress{
     height:100%;
     width:16.6%;
-    background:#d9ff4a;
+    background:var(--pink);
     transition:.3s;
 }
 
@@ -109,56 +124,64 @@ body{
 }
 
 h2{
+    color:var(--petrol);
     margin-bottom:20px;
+    font-size:2rem;
 }
 
 label{
     display:block;
     margin:16px 0 8px;
-    font-weight:600;
+    font-weight:bold;
+    color:var(--petrol);
 }
 
 input,
 textarea{
     width:100%;
     padding:15px;
-    border:none;
+    border:2px solid var(--grau);
     border-radius:14px;
-    background:#334155;
-    color:white;
+    background:white;
+    color:#111;
+    font-family:"Arial Narrow", Arial, sans-serif;
+    font-size:1rem;
+}
+
+input:focus,
+textarea:focus{
+    outline:none;
+    border-color:var(--turkis);
 }
 
 textarea{
     min-height:120px;
 }
 
-input::placeholder,
-textarea::placeholder{
-    color:#94a3b8;
-}
-
 .buttons{
     display:flex;
     justify-content:space-between;
+    gap:12px;
     margin-top:30px;
 }
 
 button{
     border:none;
     border-radius:14px;
-    padding:14px 22px;
+    padding:14px 24px;
     cursor:pointer;
-    font-weight:700;
+    font-weight:bold;
+    font-family:"Arial Narrow", Arial, sans-serif;
 }
 
 .back{
-    background:#334155;
-    color:white;
+    background:#E5E7EB;
+    color:#111;
 }
 
 .next{
-    background:#d9ff4a;
-    color:black;
+    background:var(--pink);
+    color:white;
 }
 
 .cta{
@@ -166,12 +189,13 @@ button{
 }
 
 .cta h3{
+    color:var(--petrol);
     font-size:2rem;
     margin-bottom:10px;
 }
 
 .cta p{
-    color:#cbd5e1;
+    color:#666;
 }
 
 @media(max-width:768px){
@@ -181,7 +205,11 @@ button{
 }
 
 .hero h1{
-    font-size:2.2rem;
+    font-size:2.8rem;
+}
+
+.form-card{
+    padding:24px;
 }
 
 }
@@ -192,7 +220,8 @@ button{
 
 <header class="hero">
     <div class="hero-content">
-        <div class="badge">📍 Dein NRW, Dein Thema</div>
+
+        <div class="badge">📍 NRWTF? COMMUNITY CALL</div>
 
         <h1>Deine Stadt.<br>Dein Thema.</h1>
 
@@ -201,6 +230,7 @@ button{
             Du entscheidest mit, worüber gesprochen wird.
             Bewirb dich mit einem Thema und bring deine Perspektive auf die Bühne.
         </p>
+
     </div>
 </header>
 
@@ -214,6 +244,7 @@ button{
 <form>
 
 <div class="step active">
+
     <h2>📍 Wo seid ihr?</h2>
 
     <label>Stadt in NRW</label>
@@ -221,9 +252,11 @@ button{
 
     <label>Stadtteil (optional)</label>
     <input type="text" placeholder="z. B. Ehrenfeld">
+
 </div>
 
 <div class="step">
+
     <h2>💬 Welches Thema beschäftigt euch?</h2>
 
     <label>Thema</label>
@@ -231,35 +264,50 @@ button{
 
     <label>Warum ist das Thema wichtig?</label>
     <textarea placeholder="Warum betrifft das junge Menschen vor Ort?"></textarea>
+
 </div>
 
 <div class="step">
+
     <h2>🏙️ Eure Stadt</h2>
 
     <label>Gibt es ein Thema, das eure Stadt aktuell besonders bewegt?</label>
     <textarea placeholder="Was wird diskutiert? Worüber regen sich Menschen auf?"></textarea>
 
     <label>Welche Orte sollten wir unbedingt sehen?</label>
-    <textarea placeholder="Treffpunkte, Plätze, Vereine, Parks, Stadtteile..."></textarea>
+    <textarea placeholder="Treffpunkte, Plätze, Vereine, Parks, Stadtteile ..."></textarea>
 
     <label>Warum sind diese Orte wichtig?</label>
     <textarea placeholder="Welche Geschichten oder Probleme zeigen sich dort?"></textarea>
+
+    <label>Welche Geschichten stecken hinter diesen Orten?</label>
+    <textarea placeholder="Was können wir dort lernen oder erleben?"></textarea>
+
+    <label>Gibt es Menschen, die wir dort kennenlernen sollten?</label>
+    <textarea placeholder="Initiativen, Vereine, Creator:innen oder engagierte Menschen"></textarea>
+
 </div>
 
 <div class="step">
+
     <h2>🎤 Vor Ort</h2>
 
     <label>Wo könnte unsere Veranstaltung stattfinden?</label>
-    <input type="text" placeholder="Jugendzentrum, Schule, Kulturhalle, Marktplatz...">
+    <input type="text" placeholder="Jugendzentrum, Schule, Kulturhalle, Marktplatz ...">
+
+    <label>Warum eignet sich dieser Ort für NRWTF?</label>
+    <textarea placeholder="Was macht den Ort besonders?"></textarea>
 
     <label>Wen sollten wir treffen?</label>
-    <textarea placeholder="Initiativen, Vereine, Creator:innen, Expert:innen"></textarea>
+    <textarea placeholder="Creator:innen, Vereine, Initiativen, Expert:innen"></textarea>
 
     <label>Welche Gäste sollten wir einladen?</label>
     <textarea placeholder="Wer kennt das Thema besonders gut?"></textarea>
+
 </div>
 
 <div class="step">
+
     <h2>🔎 Der NRW-Check</h2>
 
     <label>Steht euer Thema für etwas Größeres in NRW?</label>
@@ -267,9 +315,14 @@ button{
 
     <label>Warum ist eure Stadt ein gutes Beispiel dafür?</label>
     <textarea placeholder="Warum sollten wir gerade zu euch kommen?"></textarea>
+
+    <label>Was macht eure Stadt einzigartig?</label>
+    <textarea placeholder="Warum lohnt sich ein Besuch bei euch besonders?"></textarea>
+
 </div>
 
 <div class="step">
+
     <div class="cta">
         <h3>🚀 Fast geschafft!</h3>
         <p>Überzeugt uns von eurem Thema.</p>
@@ -292,9 +345,11 @@ button{
     <button type="button" class="next" style="width:100%;">
         Thema einreichen
     </button>
+
 </div>
 
 <div class="buttons">
+
     <button type="button" class="back" id="backBtn">
         Zurück
     </button>
@@ -302,6 +357,7 @@ button{
     <button type="button" class="next" id="nextBtn">
         Weiter →
     </button>
+
 </div>
 
 </form>
@@ -311,28 +367,31 @@ button{
 
 <script>
 
-const steps = document.querySelectorAll('.step');
-const progress = document.getElementById('progress');
+const steps = document.querySelectorAll(".step");
+const progress = document.getElementById("progress");
 
 let currentStep = 0;
 
-function updateStep() {
+function updateStep(){
 
-    steps.forEach(step => step.classList.remove('active'));
+    steps.forEach(step =>
+        step.classList.remove("active")
+    );
 
-    steps[currentStep].classList.add('active');
+    steps[currentStep]
+        .classList.add("active");
 
     progress.style.width =
-        ((currentStep + 1) / steps.length * 100) + '%';
+        ((currentStep + 1) / steps.length * 100) + "%";
 
-    backBtn.style.visibility =
-        currentStep === 0 ? 'hidden' : 'visible';
+    document.getElementById("backBtn").style.visibility =
+        currentStep === 0 ? "hidden" : "visible";
 
-    nextBtn.style.display =
-        currentStep === steps.length - 1 ? 'none' : 'block';
+    document.getElementById("nextBtn").style.display =
+        currentStep === steps.length - 1 ? "none" : "block";
 }
 
-nextBtn.addEventListener('click', () => {
+document.getElementById("nextBtn").addEventListener("click", () => {
 
     if(currentStep < steps.length - 1){
         currentStep++;
@@ -341,7 +400,7 @@ nextBtn.addEventListener('click', () => {
 
 });
 
-backBtn.addEventListener('click', () => {
+document.getElementById("backBtn").addEventListener("click", () => {
 
     if(currentStep > 0){
         currentStep--;
