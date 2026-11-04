@@ -13,7 +13,139 @@
 <div class="choice"><h3>Little NRW in meine Stadt holen</h3><p>Schlag eine Stadt und ein Thema vor.</p><br><button onclick="showCity()">Stadt vorschlagen</button></div>
 <div class="choice"><h3>Aktiv an einer Ausgabe teilnehmen</h3><p>Melde dich für die aktive Teilnahme an einer geplanten Little-NRW-Show an. Für das Publikum ist keine Anmeldung erforderlich.</p><br><button onclick="showEvent()">Zur aktiven Teilnahme</button></div>
 </div></div>
-<div class="card form-section" id="cityForm"><div class="stepcount" id="stepcount">Schritt 1 von 6</div><div class="progress-track"><div class="progress" id="progress"></div></div><form><div class="step active"><h2>Wo seid ihr?</h2><label>Stadt in NRW</label><input><label>Stadtteil</label><input></div><div class="buttons"><button type="button" class="btn" id="backBtn">Zurück</button><button type="button" class="btn" id="nextBtn">Weiter</button></div></form></div>
+<div class="card form-section" id="cityForm">
+
+<div class="stepcount" id="stepcount">
+Schritt 1 von 6
+</div>
+
+<div class="progress-track">
+    <div class="progress" id="progress"></div>
+</div>
+
+<form>
+
+<div class="step active">
+
+<h2>Wo seid ihr?</h2>
+
+<label>Stadt in NRW</label>
+<input placeholder="z. B. Köln, Essen, Bonn">
+
+<label>Stadtteil (optional)</label>
+<input placeholder="z. B. Ehrenfeld">
+
+</div>
+
+<div class="step">
+
+<h2>Welches Thema beschäftigt euch?</h2>
+
+<label>Thema</label>
+<input placeholder="z. B. Wohnen, ÖPNV, Wehrpflicht">
+
+<label>Warum ist das Thema wichtig?</label>
+
+<textarea placeholder="Warum betrifft das junge Menschen vor Ort?"></textarea>
+
+</div>
+
+<div class="step">
+
+<h2>Eure Stadt</h2>
+
+<label>Gibt es ein Thema, das eure Stadt aktuell besonders bewegt?</label>
+<textarea></textarea>
+
+<label>Welche Orte sollten wir unbedingt sehen?</label>
+<textarea></textarea>
+
+<label>Warum sind diese Orte wichtig?</label>
+<textarea></textarea>
+
+<label>Welche Geschichten stecken hinter diesen Orten?</label>
+<textarea></textarea>
+
+<label>Gibt es Menschen, die wir kennenlernen sollten?</label>
+<textarea></textarea>
+
+</div>
+
+<div class="step">
+
+<h2>Vor Ort</h2>
+
+<label>Wo könnte Little NRW stattfinden?</label>
+<input>
+
+<label>Warum eignet sich dieser Ort?</label>
+<textarea></textarea>
+
+<label>Wen sollten wir treffen?</label>
+<textarea></textarea>
+
+<label>Welche Creator:innen oder Gäste sollten wir einladen?</label>
+<textarea></textarea>
+
+</div>
+
+<div class="step">
+
+<h2>Der Little NRW Check</h2>
+
+<label>Steht euer Thema für etwas Größeres in NRW?</label>
+<textarea></textarea>
+
+<label>Warum ist eure Stadt ein gutes Beispiel dafür?</label>
+<textarea></textarea>
+
+<label>Was macht eure Stadt einzigartig?</label>
+<textarea></textarea>
+
+</div>
+
+<div class="step">
+
+<h2>Fast geschafft</h2>
+
+<label>Dein Pitch</label>
+<textarea></textarea>
+
+<label>Vorname</label>
+<input>
+
+<label>Alter</label>
+<input type="number">
+
+<label>E-Mail</label>
+<input type="email">
+
+<label>Instagram (optional)</label>
+<input>
+
+<br><br>
+
+<button type="button" class="btn">
+Vorschlag einreichen
+</button>
+
+</div>
+
+<div class="buttons">
+
+<button type="button" class="btn" id="backBtn">
+Zurück
+</button>
+
+<button type="button" class="btn" id="nextBtn">
+Weiter
+</button>
+
+</div>
+
+</form>
+
+</div>
 <div class="card form-section" id="eventForm"><button class="btn" onclick="goHome()">Zurück</button><br><br>
 <h2>Little NRW Neuss</h2>
 <p>Du hast Lust, dich aktiv an der Diskussion zu beteiligen und gemeinsam mit anderen jungen Menschen, Expert:innen und Verantwortlichen über bezahlbaren Wohnraum in Neuss zu sprechen? Dann kannst du dich hier für die aktive Teilnahme an der nächsten Ausgabe von Little NRW anmelden.</p><br>
