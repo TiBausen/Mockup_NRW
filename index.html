@@ -153,6 +153,49 @@
     h2 { color: var(--ink); font-size: 1.75rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
     h3 { font-size: 1.3rem; font-weight: 600; line-height: 1.25; margin-bottom: 8px; }
     .lead { color: var(--text-muted); margin-bottom: 28px; }
+    .card + .card { margin-top: 36px; }
+
+    /* „Komm einfach vorbei“-Block */
+    .welcome { background: var(--green-soft); }
+    .welcome h2 { font-size: clamp(1.9rem, 5vw, 2.6rem); margin-bottom: 12px; }
+    .welcome h2 .coral { color: var(--coral); }
+    .welcome > p { font-size: 1.1rem; max-width: 680px; }
+    .perks {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 22px 0 0;
+    }
+    .perks li {
+      background: #fff;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 6px 16px 6px 10px;
+      font-family: "Fredoka", sans-serif;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .perks li::before {
+      content: "✓";
+      display: grid;
+      place-items: center;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-size: .85rem;
+    }
+    .next-event {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 2px dashed var(--ink);
+      font-weight: 500;
+    }
+    .next-event strong { font-family: "Fredoka", sans-serif; color: var(--coral); }
 
     .grid {
       display: grid;
@@ -262,6 +305,14 @@
     }
     .checkbox input { width: 22px; height: 22px; margin-top: 2px; flex-shrink: 0; accent-color: var(--green); }
     .checkbox a { color: var(--ink); }
+    .checkbox-box {
+      margin-top: 26px;
+      background: var(--sky);
+      border: 2px solid var(--ink);
+      border-radius: 16px;
+      padding: 4px 18px 18px;
+    }
+    .checkbox-box .checkbox { font-weight: 600; }
 
     .buttons {
       display: flex;
@@ -334,9 +385,24 @@
 <main>
 
   <!-- ================= Startseite ================= -->
-  <section class="card" id="home" aria-labelledby="home-title">
+  <div id="home">
+
+  <!-- ================= Komm einfach vorbei ================= -->
+  <section class="card welcome" aria-labelledby="welcome-title">
+    <span class="sticker">Keine Anmeldung nötig</span>
+    <h2 id="welcome-title">Komm einfach vorbei – <span class="coral">mit deinen Freund:innen!</span></h2>
+    <p>Du willst zuhören, mitdiskutieren oder einfach mal schauen, was los ist? Dann komm vorbei und bring deine Leute mit. Anmelden musst du dich nicht – setz dich dazu und sag, was du denkst. Wir haben Bock auf euch!</p>
+    <ul class="perks">
+      <li>Keine Anmeldung</li>
+      <li>Mit Freund:innen kommen</li>
+      <li>Einfach mitreden</li>
+    </ul>
+    <p class="next-event">Nächste Ausgabe: <strong>Little NRW <span class="platzhalter" data-ph="stadt"></span></strong> · Thema: <span class="platzhalter" data-ph="thema"></span></p>
+  </section>
+
+  <section class="card" aria-labelledby="home-title">
     <h2 id="home-title">Wie möchtest du mitmachen?</h2>
-    <p class="lead">Mit deiner Stadt bewerben oder bei einer geplanten Ausgabe mitmachen.</p>
+    <p class="lead">Holt Little NRW zu euch oder schlagt jemanden vor, der mitreden sollte.</p>
 
     <div class="grid">
       <article class="choice">
@@ -345,12 +411,14 @@
         <a class="btn" href="#stadt-vorschlagen">Mit deiner Stadt bewerben</a>
       </article>
       <article class="choice">
-        <h3>Aktiv an einer Ausgabe teilnehmen</h3>
-        <p>Melde dich an, wenn du bei der nächsten Ausgabe mitdiskutieren willst. <strong>Zum Zuschauen brauchst du keine Anmeldung.</strong></p>
-        <a class="btn" href="#teilnehmen">Zur aktiven Teilnahme</a>
+        <h3>Jemanden zum Mitreden vorschlagen</h3>
+        <p>Du kennst Creator:innen, Influencer:innen oder andere Leute mit Reichweite, die bei der nächsten Ausgabe mitreden sollten? Schlag sie vor!</p>
+        <a class="btn" href="#person-vorschlagen">Person vorschlagen</a>
       </article>
     </div>
   </section>
+
+  </div>
 
   <!-- ================= Bewerbung ================= -->
   <section class="card" id="stadt-vorschlagen" aria-label="Mit deiner Stadt bewerben" hidden>
@@ -396,7 +464,6 @@
           <input id="c-link" name="link" inputmode="url" placeholder="Link zu einem kurzen Video, Insta-Post oder einer Sprachnachricht">
         </div>
       </fieldset>
-
       <fieldset class="step" style="border:0" hidden>
         <h2>Wer bewirbt sich?</h2>
         <div class="row">
@@ -416,6 +483,16 @@
         <div class="field">
           <label for="c-insta">Instagram <span class="optional">(optional)</span></label>
           <input id="c-insta" name="instagram" placeholder="@deinname">
+        </div>
+        <div class="checkbox-box">
+          <label class="checkbox">
+            <input type="checkbox" id="c-fachkraft" name="arbeitet_mit_jugendlichen" value="ja">
+            <span>Ich arbeite mit Jugendlichen – z. B. in der Sozialarbeit, Schule, im Jugendzentrum oder Verein – und bewerbe mich gemeinsam mit ihnen bzw. für sie.</span>
+          </label>
+          <div class="field" id="c-fachkraft-details" hidden>
+            <label for="c-einrichtung">Wo und als was? <span class="optional">(optional)</span></label>
+            <input id="c-einrichtung" name="einrichtung" placeholder="z. B. Schulsozialarbeit an der Gesamtschule Musterstadt">
+          </div>
         </div>
         <label class="checkbox">
           <input type="checkbox" name="datenschutz" required>
@@ -441,13 +518,13 @@
     </div>
   </section>
 
-  <!-- ================= Aktive Teilnahme ================= -->
-  <section class="card" id="teilnehmen" aria-labelledby="event-title" hidden>
+  <!-- ================= Person vorschlagen ================= -->
+  <section class="card" id="person-vorschlagen" aria-labelledby="person-title" hidden>
     <button type="button" class="back-link" data-home>← Zur Startseite</button>
 
-    <form id="eventForm" data-form-name="anmeldung-event" novalidate>
-      <h2 id="event-title">Little NRW <span class="platzhalter" data-ph="stadt"></span></h2>
-      <p>Du hast Lust, dich aktiv an der Diskussion zu beteiligen und gemeinsam mit anderen jungen Menschen, Expert:innen und Verantwortlichen über <span class="platzhalter" data-ph="thema"></span> in <span class="platzhalter" data-ph="stadt"></span> zu sprechen? Dann melde dich hier für die aktive Teilnahme an der nächsten Ausgabe von Little NRW an.</p>
+    <form id="personForm" data-form-name="personenvorschlag" novalidate>
+      <h2 id="person-title">Little NRW <span class="platzhalter" data-ph="stadt"></span></h2>
+      <p>Du kennst jemanden, der bei <span class="platzhalter" data-ph="thema"></span> unbedingt mitreden sollte? Jemanden mit Reichweite – Creator:in, Influencer:in, Podcaster:in oder einfach eine Person, die man in <span class="platzhalter" data-ph="stadt"></span> kennt? Dann schlag sie hier vor.</p>
 
       <dl class="event-meta">
         <dt>Ort</dt><dd><span class="platzhalter" data-ph="stadt"></span></dd>
@@ -455,44 +532,49 @@
       </dl>
 
       <div class="info-box">
-        <strong>Wichtig:</strong> Diese Anmeldung ist nur für Personen gedacht, die aktiv an der Veranstaltung mitwirken möchten. Wenn du die Ausgabe einfach als Zuschauer:in besuchen möchtest, brauchst du keine Anmeldung und kannst am Veranstaltungstag direkt vorbeikommen.
+        <strong>Du willst selbst mitdiskutieren?</strong> Dafür brauchst du kein Formular – komm einfach zur Ausgabe vorbei, gern mit deinen Freund:innen, und rede mit.
+      </div>
+
+      <div class="field">
+        <label for="p-name">Wen schlägst du vor?</label>
+        <input id="p-name" name="person_name" placeholder="Name oder Künstlername" required>
+      </div>
+      <div class="field">
+        <label for="p-kanal">Wo findet man die Person?</label>
+        <input id="p-kanal" name="person_kanal" inputmode="url" placeholder="z. B. @name auf Instagram, TikTok oder YouTube – oder ein Link" required>
+      </div>
+      <div class="field">
+        <label for="p-warum">Warum sollte die Person mitreden?</label>
+        <textarea id="p-warum" name="person_warum" placeholder="Was hat sie mit dem Thema oder der Stadt zu tun? Warum würden Leute ihr zuhören?" required></textarea>
       </div>
 
       <div class="row">
         <div class="field">
-          <label for="e-vorname">Vorname</label>
-          <input id="e-vorname" name="vorname" required autocomplete="given-name">
+          <label for="p-vorname">Dein Vorname <span class="optional">(optional)</span></label>
+          <input id="p-vorname" name="vorname" autocomplete="given-name">
         </div>
         <div class="field">
-          <label for="e-alter">Alter</label>
-          <input id="e-alter" name="alter" type="number" min="10" max="99" inputmode="numeric" required>
+          <label for="p-email">Deine E-Mail <span class="optional">(optional)</span></label>
+          <input id="p-email" name="email" type="email" autocomplete="email" placeholder="falls wir Rückfragen haben">
         </div>
-      </div>
-      <div class="field">
-        <label for="e-email">E-Mail</label>
-        <input id="e-email" name="email" type="email" required autocomplete="email">
-      </div>
-      <div class="field">
-        <label for="e-warum">Warum möchtest du dabei sein?</label>
-        <textarea id="e-warum" name="motivation" required></textarea>
       </div>
       <label class="checkbox">
         <input type="checkbox" name="datenschutz" required>
-        <span>Ich bin einverstanden, dass meine Angaben zur Organisation der Veranstaltung gespeichert und verwendet werden. Mehr in der <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
+        <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung des Vorschlags gespeichert und verwendet werden. Mehr in der <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
       </label>
 
       <p class="error-msg" role="alert" hidden></p>
 
       <div class="buttons">
         <span class="spacer"></span>
-        <button type="submit" class="btn">Anmeldung absenden</button>
+        <button type="submit" class="btn">Vorschlag abschicken</button>
       </div>
     </form>
 
     <div class="success" hidden>
       <div class="success-icon" aria-hidden="true">✓</div>
-      <h2>Du bist angemeldet!</h2>
-      <p>Wir melden uns mit allen weiteren Infos per E-Mail bei dir.</p>
+      <h2>Danke für deinen Vorschlag!</h2>
+      <p>Wir schauen uns die Person an und melden uns, falls wir Rückfragen haben.</p>
       <button type="button" class="btn" data-home>Zur Startseite</button>
     </div>
   </section>
@@ -525,15 +607,15 @@
     el.textContent = value || (key === "stadt" ? "[Stadt]" : "[Thema]");
     el.classList.toggle("leer", !value);
   });
-  // Stadt mitschicken, damit klar ist, für welches Event die Anmeldung ist
+  // Stadt mitschicken, damit klar ist, für welche Ausgabe der Vorschlag ist
   const eventCity = document.createElement("input");
   eventCity.type = "hidden";
   eventCity.name = "event";
   eventCity.value = [EVENT.stadt, EVENT.thema].filter(Boolean).join(" – ");
-  document.getElementById("eventForm").appendChild(eventCity);
+  document.getElementById("personForm").appendChild(eventCity);
 
   /* ---------- Navigation (über #hash, damit der Zurück-Button des Browsers funktioniert) ---------- */
-  const views = ["home", "stadt-vorschlagen", "teilnehmen"];
+  const views = ["home", "stadt-vorschlagen", "person-vorschlagen"];
 
   function showView() {
     const id = location.hash.slice(1);
@@ -557,7 +639,7 @@
 
   /* ---------- Validierung ---------- */
   function validate(container, form) {
-    const fields = [...container.querySelectorAll("input, textarea")];
+    const fields = [...container.querySelectorAll("input, textarea")].filter(f => !f.closest("[hidden]"));
     let firstInvalid = null;
     fields.forEach(f => {
       const ok = f.checkValidity();
@@ -660,11 +742,17 @@
 
   renderStep();
 
-  /* ---------- Teilnahme-Formular ---------- */
-  const eventForm = document.getElementById("eventForm");
-  eventForm.addEventListener("submit", e => {
+  // Zusatzfeld zeigen, wenn jemand mit Jugendlichen arbeitet
+  const fachkraft = document.getElementById("c-fachkraft");
+  fachkraft.addEventListener("change", () => {
+    document.getElementById("c-fachkraft-details").hidden = !fachkraft.checked;
+  });
+
+  /* ---------- Person vorschlagen ---------- */
+  const personForm = document.getElementById("personForm");
+  personForm.addEventListener("submit", e => {
     e.preventDefault();
-    if (validate(eventForm, eventForm)) submitForm(eventForm);
+    if (validate(personForm, personForm)) submitForm(personForm);
   });
 </script>
 </body>
