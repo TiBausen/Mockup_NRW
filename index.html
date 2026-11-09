@@ -1,156 +1,608 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Little NRW | Deine Stadt. Deine Themen.</title>
-<link rel="icon" href="favicon.png">
-<style>:root{--turkis:#00A096;--pink:#E63264;--petrol:#00737D;--hell:#F7F7F7;--grau:#E5E7EB}*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:var(--hell);color:#111;line-height:1.5}.hero{height:420px;background:linear-gradient(rgba(0,115,125,.3),rgba(0,115,125,.85)),url('header.jpg') center/cover no-repeat;display:flex;align-items:end}.hero-content{max-width:1100px;margin:auto;padding:40px 24px;color:#fff}.badge{display:inline-block;background:var(--pink);padding:10px 18px;border-radius:999px;margin-bottom:16px}.hero h1{font-size:4rem}.wrapper{max-width:950px;margin:-50px auto 80px;padding:20px}.card{background:#fff;border-radius:24px;padding:32px;box-shadow:0 10px 40px rgba(0,0,0,.08)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.choice{border:2px solid var(--grau);border-radius:20px;padding:24px}.btn,.choice button{background:var(--pink);color:#fff;border:none;border-radius:12px;padding:14px 20px;cursor:pointer}.form-section{display:none}.form-section.active{display:block}.step{display:none}.step.active{display:block}.progress-track{height:8px;background:var(--grau);border-radius:999px;margin-bottom:10px}.progress{height:100%;background:var(--pink);width:16.6%}.stepcount{color:#666;margin-bottom:15px}label{display:block;margin:15px 0 8px;font-weight:bold;color:var(--petrol)}input,textarea,select{width:100%;padding:14px;border:2px solid var(--grau);border-radius:12px}textarea{min-height:110px}.buttons{display:flex;justify-content:space-between;margin-top:25px}#homeButton{position:fixed;top:20px;right:20px;z-index:9999;background:#fff;color:var(--petrol);border:none;border-radius:999px;padding:12px 20px;box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}@media(max-width:768px){.grid{grid-template-columns:1fr}.hero h1{font-size:2.7rem}}</style>
-</head><body>
-<button id="homeButton" onclick="goHome()">Zur Startseite</button>
-<header class="hero"><div class="hero-content"><div class="badge">LITTLE NRW</div><h1>Deine Stadt.<br>Deine Themen.</h1><p>Was juckt dich?<br>Wohnungen, Nahverkehr, Freizeit, Social Media, Politik oder etwas ganz anderes?<br>Little NRW bringt Menschen und Expert:innen an einen Tisch und diskutiert die Themen, die direkt vor eurer Haustür stattfinden.<br>Schlag eine Stadt vor, reich ein Thema ein oder sei bei einer Veranstaltung dabei.</p></div></header>
-<div class="wrapper"><div class="card" id="home"><h2>Wie möchtest du mitmachen?</h2><p style="margin:15px 0 30px;color:#666">Du kannst eine neue Ausgabe vorschlagen oder dich für eine bereits geplante Veranstaltung anmelden.</p><div class="grid">
-<div class="choice"><h3>Little NRW in meine Stadt holen</h3><p>Schlag eine Stadt und ein Thema vor.</p><br><button onclick="showCity()">Stadt vorschlagen</button></div>
-<div class="choice"><h3>Aktiv an einer Ausgabe teilnehmen</h3><p>Melde dich für die aktive Teilnahme an einer geplanten Little-NRW-Show an. Für das Publikum ist keine Anmeldung erforderlich.</p><br><button onclick="showEvent()">Zur aktiven Teilnahme</button></div>
-</div></div>
-<div class="card form-section" id="cityForm">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little NRW | Deine Stadt. Deine Themen.</title>
+  <meta name="description" content="Little NRW bringt junge Menschen und Expert:innen an einen Tisch – zu den Themen direkt vor eurer Haustür.">
+  <link rel="icon" href="favicon.png">
+  <style>
+    :root {
+      --turkis: #00A096;
+      --pink: #E63264;
+      --pink-dark: #C4204F;
+      --petrol: #00737D;
+      --hell: #F7F7F7;
+      --grau: #E5E7EB;
+      --text: #111;
+      --text-muted: #5B6168;
+      --radius: 16px;
+    }
 
-<div class="stepcount" id="stepcount">
-Schritt 1 von 6
-</div>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-<div class="progress-track">
-    <div class="progress" id="progress"></div>
-</div>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      background: var(--hell);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-<form>
+    [hidden] { display: none !important; }
 
-<div class="step active">
+    /* ---------- Hero ---------- */
+    .hero {
+      min-height: 440px;
+      background:
+        linear-gradient(rgba(0, 115, 125, .35), rgba(0, 115, 125, .9)),
+        url("header.jpg") center / cover no-repeat,
+        var(--petrol);
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-content {
+      width: 100%;
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+      color: #fff;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--pink);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      font-size: .85rem;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .hero p { max-width: 640px; font-size: 1.1rem; }
+    .hero p + p { margin-top: 12px; }
 
-<h2>Wo seid ihr?</h2>
+    /* ---------- Layout ---------- */
+    main {
+      max-width: 950px;
+      margin: -60px auto 80px;
+      padding: 0 16px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: clamp(20px, 5vw, 40px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+    }
+    h2 { color: var(--petrol); font-size: 1.6rem; line-height: 1.25; margin-bottom: 8px; }
+    h3 { font-size: 1.15rem; margin-bottom: 8px; }
+    .lead { color: var(--text-muted); margin-bottom: 28px; }
 
-<label>Stadt in NRW</label>
-<input placeholder="z. B. Köln, Essen, Bonn">
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .choice {
+      display: flex;
+      flex-direction: column;
+      border: 2px solid var(--grau);
+      border-radius: 20px;
+      padding: 24px;
+      transition: border-color .2s;
+    }
+    .choice:hover { border-color: var(--turkis); }
+    .choice p { color: var(--text-muted); margin-bottom: 20px; flex: 1; }
 
-<label>Stadtteil (optional)</label>
-<input placeholder="z. B. Ehrenfeld">
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--pink);
+      color: #fff;
+      border: 2px solid var(--pink);
+      border-radius: 12px;
+      padding: 12px 22px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, border-color .2s;
+    }
+    .btn:hover { background: var(--pink-dark); border-color: var(--pink-dark); }
+    .btn-secondary { background: #fff; color: var(--petrol); border-color: var(--grau); }
+    .btn-secondary:hover { background: var(--hell); border-color: var(--petrol); }
+    .btn:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--turkis);
+      outline-offset: 2px;
+    }
+    .btn:disabled { opacity: .6; cursor: wait; }
 
-</div>
+    .back-link {
+      background: none;
+      border: none;
+      color: var(--petrol);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 24px;
+    }
+    .back-link:hover { text-decoration: underline; }
 
-<div class="step">
+    /* ---------- Formulare ---------- */
+    .progress-track {
+      height: 8px;
+      background: var(--grau);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress {
+      height: 100%;
+      background: var(--pink);
+      width: 0;
+      transition: width .3s ease;
+    }
+    .stepcount { color: var(--text-muted); font-size: .9rem; margin-bottom: 20px; }
 
-<h2>Welches Thema beschäftigt euch?</h2>
+    .field { margin-top: 18px; }
+    label { display: block; margin-bottom: 6px; font-weight: 700; color: var(--petrol); }
+    .optional { font-weight: 400; color: var(--text-muted); }
+    .hint { font-size: .9rem; color: var(--text-muted); margin-top: 4px; }
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid var(--grau);
+      border-radius: 12px;
+      font: inherit;
+      background: #fff;
+    }
+    input:focus, textarea:focus { border-color: var(--turkis); }
+    input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--pink); }
+    textarea { min-height: 110px; resize: vertical; }
 
-<label>Thema</label>
-<input placeholder="z. B. Wohnen, ÖPNV, Wehrpflicht">
+    .row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
 
-<label>Warum ist das Thema wichtig?</label>
+    .checkbox {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 22px;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .checkbox input { width: 20px; height: 20px; margin-top: 3px; flex-shrink: 0; accent-color: var(--pink); }
+    .checkbox a { color: var(--petrol); }
 
-<textarea placeholder="Warum betrifft das junge Menschen vor Ort?"></textarea>
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .buttons .spacer { flex: 1; }
 
-</div>
+    .error-msg { color: var(--pink-dark); font-weight: 700; margin-top: 16px; }
 
-<div class="step">
+    .info-box {
+      background: #E8F6F5;
+      border-left: 4px solid var(--turkis);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 24px 0;
+    }
+    .event-meta {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4px 16px;
+      margin: 20px 0;
+    }
+    .event-meta dt { font-weight: 700; color: var(--petrol); }
 
-<h2>Eure Stadt</h2>
+    .success { text-align: center; padding: 24px 0; }
+    .success-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--turkis);
+      color: #fff;
+      font-size: 2rem;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 16px;
+    }
+    .success p { color: var(--text-muted); margin: 8px 0 24px; }
 
-<label>Gibt es ein Thema, das eure Stadt aktuell besonders bewegt?</label>
-<textarea></textarea>
+    footer { text-align: center; color: var(--text-muted); font-size: .9rem; padding: 0 16px 40px; }
 
-<label>Welche Orte sollten wir unbedingt sehen?</label>
-<textarea></textarea>
+    @media (max-width: 700px) {
+      .grid, .row { grid-template-columns: 1fr; }
+      .buttons .btn { flex: 1; }
+    }
+  </style>
+</head>
+<body>
 
-<label>Warum sind diese Orte wichtig?</label>
-<textarea></textarea>
+<header class="hero">
+  <div class="hero-content">
+    <div class="badge">LITTLE NRW</div>
+    <h1>Deine Stadt.<br>Deine Themen.</h1>
+    <p>Was juckt dich? Wohnungen, Nahverkehr, Freizeit, Social Media, Politik oder etwas ganz anderes?</p>
+    <p>Little NRW bringt Menschen und Expert:innen an einen Tisch und diskutiert die Themen, die direkt vor eurer Haustür stattfinden. Schlag eine Stadt vor, reich ein Thema ein oder sei bei einer Veranstaltung dabei.</p>
+  </div>
+</header>
 
-<label>Welche Geschichten stecken hinter diesen Orten?</label>
-<textarea></textarea>
+<main>
 
-<label>Gibt es Menschen, die wir kennenlernen sollten?</label>
-<textarea></textarea>
+  <!-- ================= Startseite ================= -->
+  <section class="card" id="home" aria-labelledby="home-title">
+    <h2 id="home-title">Wie möchtest du mitmachen?</h2>
+    <p class="lead">Du kannst eine neue Ausgabe vorschlagen oder dich für eine bereits geplante Veranstaltung anmelden.</p>
 
-</div>
+    <div class="grid">
+      <article class="choice">
+        <h3>Little NRW in meine Stadt holen</h3>
+        <p>Schlag eine Stadt und ein Thema vor.</p>
+        <a class="btn" href="#stadt-vorschlagen">Stadt vorschlagen</a>
+      </article>
+      <article class="choice">
+        <h3>Aktiv an einer Ausgabe teilnehmen</h3>
+        <p>Melde dich für die aktive Teilnahme an einer geplanten Little-NRW-Show an. Für das Publikum ist keine Anmeldung erforderlich.</p>
+        <a class="btn" href="#teilnehmen">Zur aktiven Teilnahme</a>
+      </article>
+    </div>
+  </section>
 
-<div class="step">
+  <!-- ================= Stadt vorschlagen ================= -->
+  <section class="card" id="stadt-vorschlagen" aria-label="Stadt vorschlagen" hidden>
+    <button type="button" class="back-link" data-home>← Zur Startseite</button>
 
-<h2>Vor Ort</h2>
+    <form id="cityForm" data-form-name="stadtvorschlag" novalidate>
+      <div class="stepcount" id="stepcount" aria-live="polite">Schritt 1 von 6</div>
+      <div class="progress-track" aria-hidden="true"><div class="progress" id="progress"></div></div>
 
-<label>Wo könnte Little NRW stattfinden?</label>
-<input>
+      <fieldset class="step" style="border:0">
+        <h2>Wo seid ihr?</h2>
+        <div class="field">
+          <label for="c-stadt">Stadt in NRW</label>
+          <input id="c-stadt" name="stadt" placeholder="z. B. Köln, Essen, Bonn" required autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label for="c-stadtteil">Stadtteil <span class="optional">(optional)</span></label>
+          <input id="c-stadtteil" name="stadtteil" placeholder="z. B. Ehrenfeld">
+        </div>
+      </fieldset>
 
-<label>Warum eignet sich dieser Ort?</label>
-<textarea></textarea>
+      <fieldset class="step" style="border:0" hidden>
+        <h2>Welches Thema beschäftigt euch?</h2>
+        <div class="field">
+          <label for="c-thema">Thema</label>
+          <input id="c-thema" name="thema" placeholder="z. B. Wohnen, ÖPNV, Wehrpflicht" required>
+        </div>
+        <div class="field">
+          <label for="c-thema-warum">Warum ist das Thema wichtig?</label>
+          <textarea id="c-thema-warum" name="thema_warum" placeholder="Warum betrifft das junge Menschen vor Ort?" required></textarea>
+        </div>
+      </fieldset>
 
-<label>Wen sollten wir treffen?</label>
-<textarea></textarea>
+      <fieldset class="step" style="border:0" hidden>
+        <h2>Eure Stadt</h2>
+        <div class="field">
+          <label for="c-bewegt">Gibt es ein Thema, das eure Stadt aktuell besonders bewegt?</label>
+          <textarea id="c-bewegt" name="stadt_bewegt"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-orte">Welche Orte sollten wir unbedingt sehen?</label>
+          <textarea id="c-orte" name="orte"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-orte-warum">Warum sind diese Orte wichtig?</label>
+          <textarea id="c-orte-warum" name="orte_warum"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-geschichten">Welche Geschichten stecken hinter diesen Orten?</label>
+          <textarea id="c-geschichten" name="orte_geschichten"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-menschen">Gibt es Menschen, die wir kennenlernen sollten?</label>
+          <textarea id="c-menschen" name="menschen"></textarea>
+        </div>
+      </fieldset>
 
-<label>Welche Creator:innen oder Gäste sollten wir einladen?</label>
-<textarea></textarea>
+      <fieldset class="step" style="border:0" hidden>
+        <h2>Vor Ort</h2>
+        <div class="field">
+          <label for="c-location">Wo könnte Little NRW stattfinden?</label>
+          <input id="c-location" name="location">
+        </div>
+        <div class="field">
+          <label for="c-location-warum">Warum eignet sich dieser Ort?</label>
+          <textarea id="c-location-warum" name="location_warum"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-treffen">Wen sollten wir treffen?</label>
+          <textarea id="c-treffen" name="treffen"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-gaeste">Welche Creator:innen oder Gäste sollten wir einladen?</label>
+          <textarea id="c-gaeste" name="gaeste"></textarea>
+        </div>
+      </fieldset>
 
-</div>
+      <fieldset class="step" style="border:0" hidden>
+        <h2>Der Little NRW Check</h2>
+        <div class="field">
+          <label for="c-groesser">Steht euer Thema für etwas Größeres in NRW?</label>
+          <textarea id="c-groesser" name="check_groesser"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-beispiel">Warum ist eure Stadt ein gutes Beispiel dafür?</label>
+          <textarea id="c-beispiel" name="check_beispiel"></textarea>
+        </div>
+        <div class="field">
+          <label for="c-einzigartig">Was macht eure Stadt einzigartig?</label>
+          <textarea id="c-einzigartig" name="check_einzigartig"></textarea>
+        </div>
+      </fieldset>
 
-<div class="step">
+      <fieldset class="step" style="border:0" hidden>
+        <h2>Fast geschafft</h2>
+        <div class="field">
+          <label for="c-pitch">Dein Pitch</label>
+          <textarea id="c-pitch" name="pitch" placeholder="Überzeug uns in ein paar Sätzen, warum Little NRW zu euch kommen sollte." required></textarea>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="c-vorname">Vorname</label>
+            <input id="c-vorname" name="vorname" required autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label for="c-alter">Alter</label>
+            <input id="c-alter" name="alter" type="number" min="10" max="99" inputmode="numeric" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="c-email">E-Mail</label>
+          <input id="c-email" name="email" type="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="c-insta">Instagram <span class="optional">(optional)</span></label>
+          <input id="c-insta" name="instagram" placeholder="@deinname">
+        </div>
+        <label class="checkbox">
+          <input type="checkbox" name="datenschutz" required>
+          <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meines Vorschlags gespeichert und verwendet werden. Mehr in der <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
+        </label>
+      </fieldset>
 
-<h2>Der Little NRW Check</h2>
+      <p class="error-msg" role="alert" hidden></p>
 
-<label>Steht euer Thema für etwas Größeres in NRW?</label>
-<textarea></textarea>
+      <div class="buttons">
+        <button type="button" class="btn btn-secondary" id="backBtn">← Zurück</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn" id="nextBtn">Weiter →</button>
+        <button type="submit" class="btn" id="submitBtn" hidden>Vorschlag einreichen</button>
+      </div>
+    </form>
 
-<label>Warum ist eure Stadt ein gutes Beispiel dafür?</label>
-<textarea></textarea>
+    <div class="success" hidden>
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <h2>Danke für deinen Vorschlag!</h2>
+      <p>Wir schauen uns alles in Ruhe an und melden uns per E-Mail bei dir.</p>
+      <button type="button" class="btn" data-home>Zur Startseite</button>
+    </div>
+  </section>
 
-<label>Was macht eure Stadt einzigartig?</label>
-<textarea></textarea>
+  <!-- ================= Aktive Teilnahme ================= -->
+  <section class="card" id="teilnehmen" aria-labelledby="event-title" hidden>
+    <button type="button" class="back-link" data-home>← Zur Startseite</button>
 
-</div>
+    <form id="eventForm" data-form-name="anmeldung-neuss" novalidate>
+      <h2 id="event-title">Little NRW Neuss</h2>
+      <p>Du hast Lust, dich aktiv an der Diskussion zu beteiligen und gemeinsam mit anderen jungen Menschen, Expert:innen und Verantwortlichen über bezahlbaren Wohnraum in Neuss zu sprechen? Dann kannst du dich hier für die aktive Teilnahme an der nächsten Ausgabe von Little NRW anmelden.</p>
 
-<div class="step">
+      <dl class="event-meta">
+        <dt>Ort</dt><dd>Neuss</dd>
+        <dt>Thema</dt><dd>Bezahlbares Wohnen für junge Menschen</dd>
+      </dl>
 
-<h2>Fast geschafft</h2>
+      <div class="info-box">
+        <strong>Wichtig:</strong> Diese Anmeldung ist nur für Personen gedacht, die aktiv an der Veranstaltung mitwirken möchten. Wenn du die Ausgabe einfach als Zuschauer:in besuchen möchtest, brauchst du keine Anmeldung und kannst am Veranstaltungstag direkt vorbeikommen.
+      </div>
 
-<label>Dein Pitch</label>
-<textarea></textarea>
+      <div class="row">
+        <div class="field">
+          <label for="e-vorname">Vorname</label>
+          <input id="e-vorname" name="vorname" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="e-alter">Alter</label>
+          <input id="e-alter" name="alter" type="number" min="10" max="99" inputmode="numeric" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="e-email">E-Mail</label>
+        <input id="e-email" name="email" type="email" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="e-warum">Warum möchtest du dabei sein?</label>
+        <textarea id="e-warum" name="motivation" required></textarea>
+      </div>
+      <label class="checkbox">
+        <input type="checkbox" name="datenschutz" required>
+        <span>Ich bin einverstanden, dass meine Angaben zur Organisation der Veranstaltung gespeichert und verwendet werden. Mehr in der <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
+      </label>
 
-<label>Vorname</label>
-<input>
+      <p class="error-msg" role="alert" hidden></p>
 
-<label>Alter</label>
-<input type="number">
+      <div class="buttons">
+        <span class="spacer"></span>
+        <button type="submit" class="btn">Anmeldung absenden</button>
+      </div>
+    </form>
 
-<label>E-Mail</label>
-<input type="email">
+    <div class="success" hidden>
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <h2>Du bist angemeldet!</h2>
+      <p>Wir melden uns mit allen weiteren Infos per E-Mail bei dir.</p>
+      <button type="button" class="btn" data-home>Zur Startseite</button>
+    </div>
+  </section>
 
-<label>Instagram (optional)</label>
-<input>
+</main>
 
-<br><br>
+<footer>
+  <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+</footer>
 
-<button type="button" class="btn">
-Vorschlag einreichen
-</button>
+<script>
+  /*
+   * Wohin sollen die Formulardaten geschickt werden?
+   * Hier die URL eures Formular-Dienstes eintragen (z. B. Formspree, Netlify Forms,
+   * eigenes Backend). Die Daten werden als JSON per POST gesendet.
+   * Solange hier nichts steht, wird NICHTS verschickt – es erscheint eine Fehlermeldung.
+   */
+  const FORM_ENDPOINT = "";
 
-</div>
+  /* ---------- Navigation (über #hash, damit der Zurück-Button des Browsers funktioniert) ---------- */
+  const views = ["home", "stadt-vorschlagen", "teilnehmen"];
 
-<div class="buttons">
+  function showView() {
+    const id = location.hash.slice(1);
+    const target = views.includes(id) ? id : "home";
+    views.forEach(v => document.getElementById(v).hidden = v !== target);
+    if (target !== "home") {
+      document.getElementById(target).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
-<button type="button" class="btn" id="backBtn">
-Zurück
-</button>
+  function goHome() {
+    history.pushState(null, "", location.pathname);
+    showView();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
-<button type="button" class="btn" id="nextBtn">
-Weiter
-</button>
+  document.querySelectorAll("[data-home]").forEach(b => b.addEventListener("click", goHome));
+  window.addEventListener("hashchange", showView);
+  window.addEventListener("popstate", showView);
+  showView();
 
-</div>
+  /* ---------- Validierung ---------- */
+  function validate(container, form) {
+    const fields = [...container.querySelectorAll("input, textarea")];
+    let firstInvalid = null;
+    fields.forEach(f => {
+      const ok = f.checkValidity();
+      f.setAttribute("aria-invalid", ok ? "false" : "true");
+      if (!ok && !firstInvalid) firstInvalid = f;
+    });
+    const msg = form.querySelector(".error-msg");
+    if (firstInvalid) {
+      msg.textContent = firstInvalid.validity.typeMismatch
+        ? "Bitte gib eine gültige E-Mail-Adresse ein."
+        : "Bitte fülle alle Pflichtfelder aus.";
+      msg.hidden = false;
+      firstInvalid.focus();
+      return false;
+    }
+    msg.hidden = true;
+    return true;
+  }
 
-</form>
+  document.querySelectorAll("input, textarea").forEach(f =>
+    f.addEventListener("input", () => {
+      if (f.getAttribute("aria-invalid") === "true" && f.checkValidity()) f.setAttribute("aria-invalid", "false");
+    })
+  );
 
-</div>
-<div class="card form-section" id="eventForm"><button class="btn" onclick="goHome()">Zurück</button><br><br>
-<h2>Little NRW Neuss</h2>
-<p>Du hast Lust, dich aktiv an der Diskussion zu beteiligen und gemeinsam mit anderen jungen Menschen, Expert:innen und Verantwortlichen über bezahlbaren Wohnraum in Neuss zu sprechen? Dann kannst du dich hier für die aktive Teilnahme an der nächsten Ausgabe von Little NRW anmelden.</p><br>
-<p><strong>Ort:</strong> Neuss<br><strong>Thema:</strong> Bezahlbares Wohnen für junge Menschen</p><br>
-<p>Wichtig: Diese Anmeldung ist nur für Personen gedacht, die aktiv an der Veranstaltung mitwirken möchten. Wenn du die Ausgabe einfach als Zuschauerin oder Zuschauer besuchen möchtest, brauchst du keine Anmeldung und kannst am Veranstaltungstag direkt vorbeikommen.</p><br>
-<label>Vorname</label><input><label>Alter</label><input type="number"><label>E-Mail</label><input type="email"><label>Warum möchtest du dabei sein?</label><textarea></textarea><button class="btn" style="margin-top:20px">Anmeldung absenden</button></div></div>
-<script>function showCity(){home.style.display='none';cityForm.classList.add('active')}function showEvent(){home.style.display='none';eventForm.classList.add('active')}function goHome(){home.style.display='block';cityForm.classList.remove('active');eventForm.classList.remove('active')}</script>
-</body></html>
+  /* ---------- Absenden ---------- */
+  async function submitForm(form) {
+    const msg = form.querySelector(".error-msg");
+    const btn = form.querySelector('[type="submit"]');
+    if (!FORM_ENDPOINT) {
+      msg.textContent = "Das Formular ist noch nicht eingerichtet (kein Empfänger hinterlegt).";
+      msg.hidden = false;
+      console.warn("FORM_ENDPOINT ist leer – bitte im Script eintragen.");
+      return;
+    }
+    const data = Object.fromEntries(new FormData(form));
+    data.formular = form.dataset.formName;
+    btn.disabled = true;
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.reset();
+      form.hidden = true;
+      form.parentElement.querySelector(".success").hidden = false;
+      form.parentElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (err) {
+      msg.textContent = "Das hat leider nicht geklappt. Bitte versuch es später noch einmal.";
+      msg.hidden = false;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  /* ---------- Mehrstufiges Formular ---------- */
+  const cityForm = document.getElementById("cityForm");
+  const steps = [...cityForm.querySelectorAll(".step")];
+  const backBtn = document.getElementById("backBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const submitBtn = document.getElementById("submitBtn");
+  let current = 0;
+
+  function renderStep() {
+    steps.forEach((s, i) => s.hidden = i !== current);
+    document.getElementById("stepcount").textContent = `Schritt ${current + 1} von ${steps.length}`;
+    document.getElementById("progress").style.width = `${((current + 1) / steps.length) * 100}%`;
+    backBtn.hidden = current === 0;
+    const last = current === steps.length - 1;
+    nextBtn.hidden = last;
+    submitBtn.hidden = !last;
+    cityForm.querySelector(".error-msg").hidden = true;
+  }
+
+  function goToStep(i) {
+    current = Math.max(0, Math.min(steps.length - 1, i));
+    renderStep();
+    document.getElementById("stadt-vorschlagen").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  nextBtn.addEventListener("click", () => {
+    if (validate(steps[current], cityForm)) goToStep(current + 1);
+  });
+  backBtn.addEventListener("click", () => goToStep(current - 1));
+
+  // Enter in einem Eingabefeld soll zum nächsten Schritt, nicht direkt absenden
+  cityForm.addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target.tagName === "INPUT" && current < steps.length - 1) {
+      e.preventDefault();
+      nextBtn.click();
+    }
+  });
+
+  cityForm.addEventListener("submit", e => {
+    e.preventDefault();
+    if (validate(steps[current], cityForm)) submitForm(cityForm);
+  });
+
+  renderStep();
+
+  /* ---------- Teilnahme-Formular ---------- */
+  const eventForm = document.getElementById("eventForm");
+  eventForm.addEventListener("submit", e => {
+    e.preventDefault();
+    if (validate(eventForm, eventForm)) submitForm(eventForm);
+  });
+</script>
+</body>
+</html>
