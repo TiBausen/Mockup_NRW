@@ -228,6 +228,7 @@
       transition: width .4s cubic-bezier(.34, 1.56, .64, 1);
     }
     .step h2 { margin-top: 28px; }
+    .hint-intro { color: var(--text-muted); margin-top: 4px; }
     .stepcount { color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
 
     .field { margin-top: 18px; }
@@ -319,7 +320,7 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <img class="logo" src="logo.svg" alt="Little NRW" width="800" height="800">
+    <img class="logo" src="logo.svg" alt="Little NRW" width="800" height="800" onerror="this.onerror=null;this.src='logo.png'">
     <div>
       <span class="sticker">Mach mit!</span>
       <h1>Deine Stadt.<br><span class="coral">Deine Themen.</span></h1>
@@ -335,13 +336,13 @@
   <!-- ================= Startseite ================= -->
   <section class="card" id="home" aria-labelledby="home-title">
     <h2 id="home-title">Wie möchtest du mitmachen?</h2>
-    <p class="lead">Neue Ausgabe vorschlagen oder bei einer geplanten Show mitmachen.</p>
+    <p class="lead">Mit deiner Stadt bewerben oder bei einer geplanten Show mitmachen.</p>
 
     <div class="grid">
       <article class="choice">
-        <h3>Little NRW in meine Stadt holen</h3>
-        <p>Schlag eine Stadt und ein Thema vor.</p>
-        <a class="btn" href="#stadt-vorschlagen">Stadt vorschlagen</a>
+        <h3>Little NRW in eure Stadt holen</h3>
+        <p>Bewerbt euch mit eurer Stadt und erzählt uns, was bei euch gerade los ist.</p>
+        <a class="btn" href="#stadt-vorschlagen">Mit deiner Stadt bewerben</a>
       </article>
       <article class="choice">
         <h3>Aktiv an einer Ausgabe teilnehmen</h3>
@@ -351,12 +352,12 @@
     </div>
   </section>
 
-  <!-- ================= Stadt vorschlagen ================= -->
-  <section class="card" id="stadt-vorschlagen" aria-label="Stadt vorschlagen" hidden>
+  <!-- ================= Bewerbung ================= -->
+  <section class="card" id="stadt-vorschlagen" aria-label="Mit deiner Stadt bewerben" hidden>
     <button type="button" class="back-link" data-home>← Zur Startseite</button>
 
-    <form id="cityForm" data-form-name="stadtvorschlag" novalidate>
-      <div class="stepcount" id="stepcount" aria-live="polite">Schritt 1 von 6</div>
+    <form id="cityForm" data-form-name="bewerbung" novalidate>
+      <div class="stepcount" id="stepcount" aria-live="polite">Schritt 1 von 3</div>
       <div class="progress-track" aria-hidden="true"><div class="progress" id="progress"></div></div>
 
       <fieldset class="step" style="border:0">
@@ -372,83 +373,36 @@
       </fieldset>
 
       <fieldset class="step" style="border:0" hidden>
-        <h2>Welches Thema beschäftigt euch?</h2>
+        <h2>Wieso sollten wir vorbeikommen?</h2>
+        <p class="hint-intro">Erzählt uns, warum Little NRW zu euch kommen soll. Es gibt kein Richtig oder Falsch – schreibt so, wie ihr redet.</p>
         <div class="field">
-          <label for="c-thema">Thema</label>
-          <input id="c-thema" name="thema" placeholder="z. B. Öffis, Freizeit, Wehrpflicht" required>
+          <label for="c-los">Was ist gerade los bei euch?</label>
+          <textarea id="c-los" name="was_ist_los" placeholder="Was nervt, was fehlt, worüber reden gerade alle? Erzählt einfach mal drauflos." required></textarea>
         </div>
         <div class="field">
-          <label for="c-thema-warum">Warum ist das Thema wichtig?</label>
-          <textarea id="c-thema-warum" name="thema_warum" placeholder="Warum betrifft das junge Menschen vor Ort?" required></textarea>
-        </div>
-      </fieldset>
-
-      <fieldset class="step" style="border:0" hidden>
-        <h2>Eure Stadt</h2>
-        <div class="field">
-          <label for="c-bewegt">Gibt es ein Thema, das eure Stadt aktuell besonders bewegt?</label>
-          <textarea id="c-bewegt" name="stadt_bewegt"></textarea>
+          <label for="c-thema">Welches Thema treibt euch gerade um?</label>
+          <input id="c-thema" name="thema" placeholder="Ein Satz reicht – z. B. „Warum fährt bei uns nach 22 Uhr kein Bus mehr?“" required>
         </div>
         <div class="field">
-          <label for="c-orte">Welche Orte sollten wir unbedingt sehen?</label>
-          <textarea id="c-orte" name="orte"></textarea>
+          <label for="c-nrw">Wieso geht das ganz NRW etwas an?</label>
+          <textarea id="c-nrw" name="warum_nrw" placeholder="Gibt es das auch woanders? Warum sollte jemand in Bielefeld, Aachen oder Dortmund bei eurer Folge zuschauen?" required></textarea>
         </div>
         <div class="field">
-          <label for="c-orte-warum">Warum sind diese Orte wichtig?</label>
-          <textarea id="c-orte-warum" name="orte_warum"></textarea>
+          <label for="c-typisch">Das ist typisch für eure Stadt <span class="optional">(optional)</span></label>
+          <textarea id="c-typisch" name="typisch" placeholder="Lieblingsorte, Ecken, die keiner kennt, Eigenheiten, Geschichten, Menschen, die man kennen muss – alles, was eure Stadt besonders macht."></textarea>
         </div>
         <div class="field">
-          <label for="c-geschichten">Welche Geschichten stecken hinter diesen Orten?</label>
-          <textarea id="c-geschichten" name="orte_geschichten"></textarea>
+          <label for="c-einladen">Wen sollten wir einladen? <span class="optional">(optional)</span></label>
+          <textarea id="c-einladen" name="einladen" placeholder="Initiativen, Vereine, Creator:innen, Leute aus Politik oder Verwaltung – oder die Nachbarin, die zu allem eine Meinung hat."></textarea>
         </div>
         <div class="field">
-          <label for="c-menschen">Gibt es Menschen, die wir kennenlernen sollten?</label>
-          <textarea id="c-menschen" name="menschen"></textarea>
+          <label for="c-link">Lieber zeigen als schreiben? <span class="optional">(optional)</span></label>
+          <input id="c-link" name="link" inputmode="url" placeholder="Link zu einem kurzen Video, Insta-Post oder einer Sprachnachricht">
         </div>
       </fieldset>
 
       <fieldset class="step" style="border:0" hidden>
-        <h2>Vor Ort</h2>
-        <div class="field">
-          <label for="c-location">Wo könnte Little NRW stattfinden?</label>
-          <input id="c-location" name="location">
-        </div>
-        <div class="field">
-          <label for="c-location-warum">Warum eignet sich dieser Ort?</label>
-          <textarea id="c-location-warum" name="location_warum"></textarea>
-        </div>
-        <div class="field">
-          <label for="c-treffen">Wen sollten wir treffen?</label>
-          <textarea id="c-treffen" name="treffen"></textarea>
-        </div>
-        <div class="field">
-          <label for="c-gaeste">Welche Creator:innen oder Gäste sollten wir einladen?</label>
-          <textarea id="c-gaeste" name="gaeste"></textarea>
-        </div>
-      </fieldset>
-
-      <fieldset class="step" style="border:0" hidden>
-        <h2>Der Little NRW Check</h2>
-        <div class="field">
-          <label for="c-groesser">Steht euer Thema für etwas Größeres in NRW?</label>
-          <textarea id="c-groesser" name="check_groesser"></textarea>
-        </div>
-        <div class="field">
-          <label for="c-beispiel">Warum ist eure Stadt ein gutes Beispiel dafür?</label>
-          <textarea id="c-beispiel" name="check_beispiel"></textarea>
-        </div>
-        <div class="field">
-          <label for="c-einzigartig">Was macht eure Stadt einzigartig?</label>
-          <textarea id="c-einzigartig" name="check_einzigartig"></textarea>
-        </div>
-      </fieldset>
-
-      <fieldset class="step" style="border:0" hidden>
-        <h2>Fast geschafft</h2>
-        <div class="field">
-          <label for="c-pitch">Dein Pitch</label>
-          <textarea id="c-pitch" name="pitch" placeholder="Überzeug uns in ein paar Sätzen, warum Little NRW zu euch kommen sollte." required></textarea>
-        </div>
+        <h2>Wer bewirbt sich?</h2>
         <div class="row">
           <div class="field">
             <label for="c-vorname">Vorname</label>
@@ -469,7 +423,7 @@
         </div>
         <label class="checkbox">
           <input type="checkbox" name="datenschutz" required>
-          <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meines Vorschlags gespeichert und verwendet werden. Mehr in der <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
+          <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Bewerbung gespeichert und verwendet werden. Mehr in der <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
         </label>
       </fieldset>
 
@@ -479,13 +433,13 @@
         <button type="button" class="btn btn-secondary" id="backBtn">← Zurück</button>
         <span class="spacer"></span>
         <button type="button" class="btn" id="nextBtn">Weiter →</button>
-        <button type="submit" class="btn" id="submitBtn" hidden>Vorschlag einreichen</button>
+        <button type="submit" class="btn" id="submitBtn" hidden>Bewerbung abschicken</button>
       </div>
     </form>
 
     <div class="success" hidden>
       <div class="success-icon" aria-hidden="true">✓</div>
-      <h2>Danke für deinen Vorschlag!</h2>
+      <h2>Danke für eure Bewerbung!</h2>
       <p>Wir schauen uns alles in Ruhe an und melden uns per E-Mail bei dir.</p>
       <button type="button" class="btn" data-home>Zur Startseite</button>
     </div>
